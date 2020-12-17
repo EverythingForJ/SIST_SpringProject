@@ -1,7 +1,5 @@
 package com.example.dao;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.example.vo.BbsVO;
-
-import lombok.extern.java.Log;
+import com.example.vo.UserVO;
 
 @Repository("bbsDao")
-@Log
 public class BbsDaoImpl implements BbsDao {
 	@Autowired
 	private SqlSession sqlSession;
@@ -27,11 +23,9 @@ public class BbsDaoImpl implements BbsDao {
 
 	@Override
 	public BbsVO selectBoard(int bno) {
-		// log.info(" bno = "+bno);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("bno", bno);
 		this.sqlSession.selectOne("Bbs.selectOneSP", map);
-		
 		List<BbsVO> list = (List<BbsVO>)map.get("result");
 		return list.get(0);
 	}
@@ -52,13 +46,15 @@ public class BbsDaoImpl implements BbsDao {
 
 	@Override
 	public void deleteBoard(int bno) {
-		// TODO Auto-generated method stub
-
+		this.sqlSession.delete("Bbs.delete", bno);
 	}
 
+	//조회수 증가
 	@Override
 	public void readnumUpdate(int bno) {
-		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bno", bno);
+		this.sqlSession.update("Bbs.readnumUpdateSP", map);
 	}
 
 }

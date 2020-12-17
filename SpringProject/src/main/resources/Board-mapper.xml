@@ -67,17 +67,12 @@
 	<update id="updateSP" parameterMap="updateParameterMap" statementType="CALLABLE">
 		{ call sp_users_update(?, ?) }  
 	</update>
+	-->
 	
-	
-	<parameterMap type="String" id="deleteParameterMap">
-		<parameter property="userid" javaType="String" jdbcType="VARCHAR"/>
-	</parameterMap>
-	<delete id="deleteSP" parameterMap="deleteParameterMap">
-		{ call sp_users_delete(?) }
+	<delete id="delete" parameterType="int">
+		DELETE FROM Board
+		WHERE bno = #{bno}
 	</delete>
 	
-	
-	
-	
-	 -->
+
 </mapper>

@@ -88,9 +88,10 @@ BEGIN
     WHERE userid = v_userid;
 END;
 
+--회원삭제
 CREATE OR REPLACE PROCEDURE sp_users_delete
 (
-    v_userid     IN    users.userid%TYPE
+    v_userid         IN      Users.userid%TYPE
 )
 IS
 BEGIN
@@ -99,15 +100,16 @@ BEGIN
     COMMIT;
 END;
 
-create or replace PROCEDURE sp_users_update
+-회원정보변경
+CREATE OR REPLACE PROCEDURE sp_users_update
 (
-    v_age           IN      Users.age%TYPE,
-    v_userid        IN      Users.userid%TYPE    
+    v_age            IN      Users.age%TYPE,
+    v_userid         IN      Users.userid%TYPE
 )
 IS
 BEGIN
     UPDATE Users
-    SET age= v_age
+    SET age = v_age
     WHERE userid = v_userid;
     COMMIT;
 END;

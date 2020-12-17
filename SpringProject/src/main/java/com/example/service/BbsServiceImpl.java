@@ -39,7 +39,6 @@ public class BbsServiceImpl implements BbsService {
 
 	@Override
 	public BbsVO read(int bno) {
-		// log.info("bno = " + bno);
 		//Service는 비즈니스 처리 해야 함.
 		//1. <br />을 엔터키로 변경 
 		//2. 특수문자 &lt;(<)  &gt(>);를 tag로 변경
@@ -55,12 +54,18 @@ public class BbsServiceImpl implements BbsService {
 		content = this.reverseChangeTag(content);
 		bbsVO.setContent(content);
 		return bbsVO;
-		
 	}
 
 	@Override
 	public List<BbsVO> readAll() {
-		return this.bbsDao.selectAllBoard();
+		List<BbsVO> list = this.bbsDao.selectAllBoard();
+		list.forEach(bbs -> {
+			String title = bbs.getTitle();
+			title = this.reverseChangeTag(title);
+			title = title.replace("\"", "'");
+			bbs.setTitle(title);
+		});
+		return list;
 	}
 
 	@Override
@@ -71,8 +76,7 @@ public class BbsServiceImpl implements BbsService {
 
 	@Override
 	public void delete(int bno) {
-		// TODO Auto-generated method stub
-
+		this.bbsDao.deleteBoard(bno);
 	}
 
 	private String changeEnter(String str) {
@@ -91,6 +95,11 @@ public class BbsServiceImpl implements BbsService {
 	private String reverseChangeTag(String str) {
 		String newStr = str.replace("&lt;", "<");
 		return newStr.replace("&gt;", ">");
+	}
+
+	@Override
+	public void updateReadnum(int bno) {
+		this.bbsDao.readnumUpdate(bno);
 	}
 	
 }

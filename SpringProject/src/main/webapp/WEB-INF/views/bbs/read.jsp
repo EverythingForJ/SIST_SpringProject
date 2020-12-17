@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="bbs" value="${bbsInfo}" />
+<c:set var="session_user_id" value="${userInfo.userid}" scope="session"/>
 <c:import url="../common/header.jsp" />
 <div class="container">
 	<div class="row">
@@ -63,14 +64,40 @@
         <tr> 
             <td class="text-right">
             	<div>
-				  <button type="button" class="btn btn-primary">목록으로</button>&nbsp;
-				  <button type="button" class="btn btn-success">수정하기</button>&nbsp;
-				  <button type="button" class="btn btn-info">삭제하기</button>
+				  <button type="button" id="btnList" class="btn btn-primary">목록으로</button>&nbsp;
+				  <c:if test="${bbs.userid eq session_user_id}">
+				  	<button type="button" id="btnUpdate" class="btn btn-success">수정하기</button>&nbsp;
+				  	<button type="button" id="btnBbsDelete" class="btn btn-info">삭제하기</button>
+				  </c:if>
+				  <c:if test="${bbs.userid ne session_user_id}">
+				    <button type="button" class="btn btn-success"  disabled="disabled">수정하기</button>&nbsp;
+				  	<button type="button" class="btn btn-info" disabled="disabled">삭제하기</button>
+				  </c:if>
 				</div>
             </td>
         </tr>
     </table>
 	</div>
 </div>
-
+<script>
+	$(function(){
+		$.ajax({
+			url : "/bbs/readnumUpdate/" + ${bbs.bno},
+			type : 'GET'
+		});
+	});
+	$('#btnList').on('click', function(){
+		location.href = "/bbs/list";    //목록으로
+	});
+	$('#btnBbsDelete').on('click', function(){
+		if(confirm("정말 삭제하시겠습니까 ? ")){
+			location.href = "/bbs/delete?bno=" + ${bbs.bno};
+		}else{
+			history.go(0);
+		}
+	});
+	$('#btnUpdate').on('click', function(){
+		location.href = "/bbs/update?bno=" + ${bbs.bno};
+	});
+</script>
 <c:import url="../common/footer.jsp" />

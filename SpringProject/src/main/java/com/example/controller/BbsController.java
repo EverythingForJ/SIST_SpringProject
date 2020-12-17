@@ -9,9 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.exception.BbsException;
 import com.example.service.BbsService;
@@ -71,4 +74,28 @@ public class BbsController {
 		//log.info(bbsVO.toString());
 		return "/bbs/read";    //WEB-INF/views/bbs/read.jsp
 	}
+	
+	@GetMapping("/readnumUpdate/{bno}")
+	public void readnumUpdate(@PathVariable int bno) {
+		this.bbsService.updateReadnum(bno);
+	}
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public String delete(@RequestParam("bno") int bno) {
+		this.bbsService.delete(bno);
+		return "redirect:/bbs/list";
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public ModelAndView update(@RequestParam("bno") int bno) {
+		ModelAndView mav = new ModelAndView();
+		BbsVO bbsVO = this.bbsService.read(bno);
+		mav.addObject("bbsInfo", bbsVO);
+		mav.setViewName("/bbs/update");   //WEB-INF/views/bbs/update.jsp
+		return mav;     
+	}
+	
+	
+	
+	
 }
