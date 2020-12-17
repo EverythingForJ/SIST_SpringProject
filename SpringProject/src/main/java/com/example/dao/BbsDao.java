@@ -10,4 +10,5 @@ public interface BbsDao {
 	List<BbsVO> selectAllBoard();
 	void updateBoard(BbsVO bbsVO);
 	void deleteBoard(int bno);
+	void readnumUpdate(int bno);
 }

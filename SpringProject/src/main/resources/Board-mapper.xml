@@ -51,6 +51,14 @@
 		{ call sp_bbs_select_one(?, ?) }	
 	</select>
 	
+	<!--  조회수 증가 -->
+	<parameterMap type="hashMap" id="readnumUpdateParameterMap">
+		<parameter property="bno" javaType="Integer" jdbcType="INTEGER" mode="IN"/>
+	</parameterMap>
+	<update id="readnumUpdateSP" parameterMap="readnumUpdateParameterMap" statementType="CALLABLE">
+		{ call sp_bbs_readnum_update(?) }  
+	</update>
+	
 	<!-- 
 	<parameterMap type="userVO" id="updateParameterMap">
 		<parameter property="age" javaType="Integer" jdbcType="INTEGER" mode="IN"/>

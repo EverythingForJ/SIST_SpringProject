@@ -39,6 +39,7 @@ public class BbsServiceImpl implements BbsService {
 
 	@Override
 	public BbsVO read(int bno) {
+		// log.info("bno = " + bno);
 		//Service는 비즈니스 처리 해야 함.
 		//1. <br />을 엔터키로 변경 
 		//2. 특수문자 &lt;(<)  &gt(>);를 tag로 변경
@@ -54,6 +55,7 @@ public class BbsServiceImpl implements BbsService {
 		content = this.reverseChangeTag(content);
 		bbsVO.setContent(content);
 		return bbsVO;
+		
 	}
 
 	@Override

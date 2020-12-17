@@ -1,8 +1,6 @@
 package com.example.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.Test;
@@ -12,7 +10,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.example.dao.BbsDao;
-import com.example.vo.BbsVO;
 
 import lombok.extern.java.Log;
 
@@ -31,13 +28,16 @@ class BbsTest {
 		// assertNotNull(this.bbsDao);
 		//List<BbsVO> list = this.bbsDao.selectAllBoard();
 		//list.forEach(bbs -> log.info(bbs.toString()));
-		BbsVO bbsVO = new BbsVO();
-		bbsVO.setTitle("제목 테스트 3");
-		bbsVO.setContent("내용 테스트 3");
-		bbsVO.setEmail("ccc@ccc.com");
-		bbsVO.setUserid("javaexpert");
-		this.sqlSession.insert("Bbs.insertSP", bbsVO);
-		assertEquals(3,this.bbsDao.selectAllBoard().size());
+//		BbsVO bbsVO = new BbsVO();
+//		bbsVO.setTitle("제목 테스트 3");
+//		bbsVO.setContent("내용 테스트 3");
+//		bbsVO.setEmail("ccc@ccc.com");
+//		bbsVO.setUserid("javaexpert");
+//		this.sqlSession.insert("Bbs.insertSP", bbsVO);
+//		assertEquals(3,this.bbsDao.selectAllBoard().size());
+		
+		assertNotNull(this.bbsDao.selectBoard(1));
+		
 	}
 
 }
