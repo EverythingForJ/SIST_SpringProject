@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.example.vo.BbsVO;
+import com.example.vo.UserVO;
 
 @Repository("bbsDao")
 public class BbsDaoImpl implements BbsDao {
@@ -22,15 +23,19 @@ public class BbsDaoImpl implements BbsDao {
 
 	@Override
 	public BbsVO selectBoard(int bno) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bno", bno);
+		this.sqlSession.selectOne("Bbs.selectOneSP", map);
+		List<BbsVO> list = (List<BbsVO>)map.get("result");
+		return list.get(0);
 	}
 
 	@Override
 	public List<BbsVO> selectAllBoard() {
 		Map<String, Object> map = new HashMap<String, Object>();
-		this.sqlSession.selectList("Bbs.selectAllSP",map);
-		return (List<BbsVO>)map.get("result");
+		this.sqlSession.selectList("Bbs.selectAllSP", map);
+		List<BbsVO> list = (List<BbsVO>)map.get("result");
+		return list;
 	}
 
 	@Override

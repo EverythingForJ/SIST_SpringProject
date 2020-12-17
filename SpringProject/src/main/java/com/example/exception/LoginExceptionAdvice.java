@@ -17,9 +17,8 @@ public class LoginExceptionAdvice {
 		logger.error("Exception ........ " + ex.getMessage());
 		model.addAttribute("exception", ex.getMessage());
 		logger.error(model.toString());
-		return "membership/error";     //WEB-INF/views/membership/error.jsp
+		return "/membership/error";     //WEB-INF/views/membership/error.jsp
 	}
-	
 	@ExceptionHandler(BbsException.class)
 	public String bbsExcept(Exception ex, Model model) {
 		logger.error("Exception ........ " + ex.getMessage());

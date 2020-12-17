@@ -88,8 +88,8 @@
 							</div>
 							<button type="submit" class="btn btn-default">Submit</button>
 						</form>
-
-						<p class="navbar-text bg-success" style="font-size:1.3em">${user.name}(${user.userid})</p>						
+						
+						<p class="navbar-text bg-success" style="font-size:1.3em">${user.name}(${user.userid})</p>
 						
 						<ul class="nav navbar-nav navbar-right">
 							<li style="padding:10px 0px">

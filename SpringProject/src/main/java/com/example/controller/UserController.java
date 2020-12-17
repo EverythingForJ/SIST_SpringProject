@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.security.auth.login.LoginException;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.exception.LoginException;
 import com.example.service.UserService;
 import com.example.vo.UserVO;
 
@@ -41,7 +41,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
-		return "membership/login";       //WEB-INF/views/membership/login.jsp
+		return "/membership/login";       //WEB-INF/views/membership/login.jsp
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)

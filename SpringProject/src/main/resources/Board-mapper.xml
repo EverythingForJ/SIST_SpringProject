@@ -4,7 +4,7 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Bbs">
 
- 	<parameterMap type="bbsVO" id="insertParameterMap">
+	<parameterMap type="bbsVO" id="insertParameterMap">
 		<parameter property="title" javaType="String" jdbcType="VARCHAR" mode="IN"/>
 		<parameter property="content" javaType="String" jdbcType="VARCHAR" mode="IN"/>
 		<parameter property="email" javaType="String" jdbcType="VARCHAR" mode="IN"/>
@@ -34,19 +34,6 @@
 			property="writer" javaType="String" />
 	</resultMap>
 	
-	
-<!--	
-	<parameterMap type="hashMap" id="loginParameterMap">
-		<parameter property="userid" javaType="String"/>
-		<parameter property="passwd" javaType="String"/>
-		<parameter property="result" javaType="Integer" jdbcType="INTEGER" mode="OUT"/>
-	</parameterMap>
-	
-	<select id="login" statementType="CALLABLE" parameterMap="loginParameterMap">
-		{ call sp_users_login(?, ?, ?) }
-	</select>
- -->	
- 
 	<parameterMap type="hashMap" id="selectAllParameterMap">
 		<parameter property="result" javaType="ResultSet" jdbcType="CURSOR" 
 		mode="OUT" resultMap="selectMap"/>
@@ -55,15 +42,16 @@
 		{ call sp_bbs_select_all(?) } 
 	</select>
 	
-<!-- 	<parameterMap type="hashMap" id="selectOneParameterMap">
-		<parameter property="userid" javaType="String" jdbcType="VARCHAR" mode="IN"/>
+	<parameterMap type="hashMap" id="selectOneParameterMap">
+		<parameter property="bno" javaType="Integer" jdbcType="INTEGER" mode="IN"/>
 		<parameter property="result" javaType="ResultSet" jdbcType="CURSOR" 
 		mode="OUT" resultMap="selectMap"/>
 	</parameterMap>
 	<select id="selectOneSP" parameterMap="selectOneParameterMap" statementType="CALLABLE">
-		{ call sp_users_select_one(?, ?) }	
+		{ call sp_bbs_select_one(?, ?) }	
 	</select>
 	
+	<!-- 
 	<parameterMap type="userVO" id="updateParameterMap">
 		<parameter property="age" javaType="Integer" jdbcType="INTEGER" mode="IN"/>
 		<parameter property="userid" javaType="String" jdbcType="VARCHAR" mode="IN"/>
@@ -72,15 +60,16 @@
 		{ call sp_users_update(?, ?) }  
 	</update>
 	
+	
 	<parameterMap type="String" id="deleteParameterMap">
 		<parameter property="userid" javaType="String" jdbcType="VARCHAR"/>
 	</parameterMap>
 	<delete id="deleteSP" parameterMap="deleteParameterMap">
 		{ call sp_users_delete(?) }
 	</delete>
+	
+	
+	
+	
 	 -->
-	
-	
-	
-	
 </mapper>

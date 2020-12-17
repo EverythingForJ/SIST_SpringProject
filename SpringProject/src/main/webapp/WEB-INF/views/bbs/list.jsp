@@ -40,7 +40,9 @@
   									<a href="mailto:${bbs.email}">${bbs.writer}</a>
   								</c:if>
   							</td>
-  							<td class="text-center">${bbs.title}</td>
+  							<td class="text-center">
+  								<a href="/bbs/read?bno=${bbs.bno}">${bbs.title}</a>
+  							</td>
   							<td class="text-center">${bbs.writeday}</td>
   							<td class="text-center">${bbs.readnum}</td>
   						</tr>
