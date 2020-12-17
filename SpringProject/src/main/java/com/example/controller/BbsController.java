@@ -63,10 +63,12 @@ public class BbsController {
 	}
 	
 	@GetMapping("/read")
-	public void read(HttpServletRequest request) {
+	public String read(HttpServletRequest request, Model model) {
 		//log.info("bno = " + request.getParameter("bno"));
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		BbsVO bbsVO = this.bbsService.read(bno);
-		log.info(bbsVO.toString());
+		model.addAttribute("bbsInfo", bbsVO);
+		//log.info(bbsVO.toString());
+		return "/bbs/read";    //WEB-INF/views/bbs/read.jsp
 	}
 }

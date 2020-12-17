@@ -25,7 +25,7 @@
 	
 	
 	<resultMap type="userVO" id="selectMap">
-		<result column="userid" jdbcType="VARCHAR" 
+		<id column="userid" jdbcType="VARCHAR" 
 			property="userid" javaType="String"/>
 		<result column="passwd" jdbcType="VARCHAR" 
 			property="passwd" javaType="String"/>
@@ -37,7 +37,7 @@
 			property="gender" javaType="String"/>
 		<result column="flag" jdbcType="INTEGER" 
 			property="flag" javaType="Integer" />
-		<collection property="bbsVO" resultMap="Bbs.selectMap"/>
+		<collection property="bbsVO" resultMap="Bbs.selectMap" />
 	</resultMap>
 	
 	<select id="selectAll" resultType="userVO" resultMap="selectMap">
