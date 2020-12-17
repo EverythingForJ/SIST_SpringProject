@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Bbs">
+
+ 	<parameterMap type="bbsVO" id="insertParameterMap">
+		<parameter property="title" javaType="String" jdbcType="VARCHAR" mode="IN"/>
+		<parameter property="content" javaType="String" jdbcType="VARCHAR" mode="IN"/>
+		<parameter property="email" javaType="String" jdbcType="VARCHAR" mode="IN"/>
+		<parameter property="userid" javaType="String" jdbcType="VARCHAR" mode="IN"/>
+	</parameterMap>
+	
+	<insert id="insertSP" statementType="CALLABLE" parameterMap="insertParameterMap">
+		{ call sp_bbs_insert(?, ?, ?, ?) }
+	</insert>
+
+	<resultMap type="bbsVO" id="selectMap">
+		<id column="bno" jdbcType="INTEGER" 
+			property="bno" javaType="Integer"/>
+		<result column="title" jdbcType="VARCHAR" 
+			property="title" javaType="String"/>
+		<result column="content" jdbcType="VARCHAR" 
+			property="content" javaType="String"/>
+		<result column="email" jdbcType="VARCHAR" 
+			property="email" javaType="String"/>
+		<result column="writeday" jdbcType="VARCHAR" 
+			property="writeday" javaType="String"/>
+		<result column="readnum" jdbcType="INTEGER" 
+			property="readnum" javaType="Integer" />
+		<result column="userid" jdbcType="VARCHAR" 
+			property="userid" javaType="String" />
+		<result column="name" jdbcType="VARCHAR" 
+			property="writer" javaType="String" />
+	</resultMap>
+	
+	
+<!--	
+	<parameterMap type="hashMap" id="loginParameterMap">
+		<parameter property="userid" javaType="String"/>
+		<parameter property="passwd" javaType="String"/>
+		<parameter property="result" javaType="Integer" jdbcType="INTEGER" mode="OUT"/>
+	</parameterMap>
+	
+	<select id="login" statementType="CALLABLE" parameterMap="loginParameterMap">
+		{ call sp_users_login(?, ?, ?) }
+	</select>
+ -->	
+ 
+	<parameterMap type="hashMap" id="selectAllParameterMap">
+		<parameter property="result" javaType="ResultSet" jdbcType="CURSOR" 
+		mode="OUT" resultMap="selectMap"/>
+	</parameterMap>
+	<select id="selectAllSP" parameterMap="selectAllParameterMap" statementType="CALLABLE">
+		{ call sp_bbs_select_all(?) } 
+	</select>
+	
+<!-- 	<parameterMap type="hashMap" id="selectOneParameterMap">
+		<parameter property="userid" javaType="String" jdbcType="VARCHAR" mode="IN"/>
+		<parameter property="result" javaType="ResultSet" jdbcType="CURSOR" 
+		mode="OUT" resultMap="selectMap"/>
+	</parameterMap>
+	<select id="selectOneSP" parameterMap="selectOneParameterMap" statementType="CALLABLE">
+		{ call sp_users_select_one(?, ?) }	
+	</select>
+	
+	<parameterMap type="userVO" id="updateParameterMap">
+		<parameter property="age" javaType="Integer" jdbcType="INTEGER" mode="IN"/>
+		<parameter property="userid" javaType="String" jdbcType="VARCHAR" mode="IN"/>
+	</parameterMap>
+	<update id="updateSP" parameterMap="updateParameterMap" statementType="CALLABLE">
+		{ call sp_users_update(?, ?) }  
+	</update>
+	
+	<parameterMap type="String" id="deleteParameterMap">
+		<parameter property="userid" javaType="String" jdbcType="VARCHAR"/>
+	</parameterMap>
+	<delete id="deleteSP" parameterMap="deleteParameterMap">
+		{ call sp_users_delete(?) }
+	</delete>
+	 -->
+	
+	
+	
+	
+</mapper>
