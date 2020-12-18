@@ -95,7 +95,15 @@ public class BbsController {
 		return mav;     
 	}
 	
-	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public void update1(BbsVO bbsVO, 
+			@RequestParam("company") String company, 
+			HttpSession session) {
+		log.info(bbsVO.toString());
+		log.info(company);
+		UserVO userVO = (UserVO)session.getAttribute("userInfo");
+		log.info(userVO.getName());
+	}
 	
 	
 }
