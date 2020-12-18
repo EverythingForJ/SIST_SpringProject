@@ -59,16 +59,16 @@
 		{ call sp_bbs_readnum_update(?) }  
 	</update>
 	
-	<!-- 
-	<parameterMap type="userVO" id="updateParameterMap">
-		<parameter property="age" javaType="Integer" jdbcType="INTEGER" mode="IN"/>
-		<parameter property="userid" javaType="String" jdbcType="VARCHAR" mode="IN"/>
+	<parameterMap type="bbsVO" id="updateParameterMap">
+		<parameter property="title" javaType="String" jdbcType="VARCHAR" mode="IN"/>
+		<parameter property="content" javaType="String" jdbcType="VARCHAR" mode="IN"/>
+		<parameter property="email" javaType="String" jdbcType="VARCHAR" mode="IN"/>
+		<parameter property="bno" javaType="Integer" jdbcType="INTEGER" mode="IN" />
 	</parameterMap>
 	<update id="updateSP" parameterMap="updateParameterMap" statementType="CALLABLE">
-		{ call sp_users_update(?, ?) }  
+		{ call sp_bbs_update(?, ?, ?, ?) }  
 	</update>
-	-->
-	
+
 	<delete id="delete" parameterType="int">
 		DELETE FROM Board
 		WHERE bno = #{bno}

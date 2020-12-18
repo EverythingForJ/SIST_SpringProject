@@ -96,13 +96,17 @@ public class BbsController {
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public void update1(BbsVO bbsVO, 
-			@RequestParam("company") String company, 
-			HttpSession session) {
-		log.info(bbsVO.toString());
-		log.info(company);
-		UserVO userVO = (UserVO)session.getAttribute("userInfo");
-		log.info(userVO.getName());
+	public String update1(BbsVO bbsVO, 
+			@RequestParam("company") String company) {
+		//log.info(bbsVO.toString());
+		//log.info(company);
+		//UserVO userVO = (UserVO)session.getAttribute("userInfo");
+		//log.info(userVO.getName());
+		String email = bbsVO.getEmail();
+		email += "@" + company;    //jimin@nate.com
+		bbsVO.setEmail(email);
+		this.bbsService.update(bbsVO);
+		return "redirect:/bbs/read?bno=" + bbsVO.getBno();
 	}
 	
 	

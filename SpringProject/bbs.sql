@@ -75,3 +75,20 @@ BEGIN
     WHERE bno = v_bno;
     COMMIT;
 END;
+
+--게시판 글 수정하기
+CREATE OR REPLACE PROCEDURE sp_bbs_update
+(
+    v_title       IN      Board.title%TYPE,
+    v_content     IN      Board.content%TYPE,
+    v_email       IN      Board.email%TYPE,
+    v_bno         IN      Board.bno%TYPE
+)
+IS
+BEGIN
+    UPDATE Board
+    SET title = v_title, content = v_content, email = v_email
+    WHERE bno = v_bno;
+    
+    COMMIT;
+END;

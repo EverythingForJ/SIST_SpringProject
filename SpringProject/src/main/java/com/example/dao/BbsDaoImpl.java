@@ -40,8 +40,7 @@ public class BbsDaoImpl implements BbsDao {
 
 	@Override
 	public void updateBoard(BbsVO bbsVO) {
-		// TODO Auto-generated method stub
-
+		this.sqlSession.update("Bbs.updateSP", bbsVO);
 	}
 
 	@Override

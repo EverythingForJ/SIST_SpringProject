@@ -70,8 +70,23 @@ public class BbsServiceImpl implements BbsService {
 
 	@Override
 	public void update(BbsVO bbsVO) {
-		// TODO Auto-generated method stub
-
+		//Service는 비즈니스 처리 해야 함.
+		//1. 엔터키를 <br />로 변경 
+		//2. tag를 일반 특수문자 &lt;(<)  &gt(>); 로 변경
+		//3. 홑따옴표를 쌍따옴표로 변경
+		String content = bbsVO.getContent();
+		content = this.changeEnter(content); //일반 Textarea에서는 해야 됨.
+		content = this.changeTag(content);  
+		content = content.replace("'", "\"");  //일반 Textarea에서는 해야 됨.
+		bbsVO.setContent(content);
+		
+		String title = bbsVO.getTitle();
+		title = this.changeTag(title);
+		title = title.replace("'", "\"");
+		bbsVO.setTitle(title);
+		
+		//log.info(bbsVO.toString());
+		this.bbsDao.updateBoard(bbsVO);
 	}
 
 	@Override

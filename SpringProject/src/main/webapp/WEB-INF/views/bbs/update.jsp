@@ -10,6 +10,7 @@
   <div class="container">
     <div class="row">
       <form class="form-horizontal" action="/bbs/update" method="POST">
+      <input type="hidden" value="${bbs.bno}" name="bno" />
         <div class="form-group">
           <label for="txtTitle" class="col-sm-2 control-label">글 제목</label>
           <div class="col-sm-8">

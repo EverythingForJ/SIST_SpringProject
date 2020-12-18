@@ -27,7 +27,8 @@
 			}
 		});
 		$('#btnAdmin').on('click', function() {
-			location.replace("/membership/admin");
+			let URL = "/membership/admin";
+			$("<a href='" + URL + "' target='_blank'>관리자 페이지로</a>")[0].click();
 		});
 		$('#btnDelete').on('click', function() {
 			if (confirm("정말 탈퇴하시겠습니까 ? ")) {
