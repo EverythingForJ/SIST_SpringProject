@@ -6,5 +6,6 @@
 	<typeAliases>
 		<typeAlias type="com.example.vo.UserVO" alias="userVO" />
 		<typeAlias type="com.example.vo.BbsVO" alias="bbsVO" />
+		<typeAlias type="com.example.vo.QnaVO" alias="qnaVO" />
 	</typeAliases>
 </configuration>
