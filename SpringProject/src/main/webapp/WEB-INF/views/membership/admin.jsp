@@ -7,6 +7,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>관리자 페이지로</title>
+<link rel="stylesheet" href="/static/css/bootstrap.css" />
+<link rel="stylesheet" href="/static/css/bootstrap-theme.css" />
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -21,20 +23,47 @@
 
 	<div id="tabs">
 		<ul>
-			<li><a href="#tabs-1">Nunc tincidunt</a></li>
+			<li><a href="#tabs-1">회원명단</a></li>
 			<li><a href="#tabs-2">Proin dolor</a></li>
 			<li><a href="#tabs-3">Aenean lacinia</a></li>
 		</ul>
 		<div id="tabs-1">
-			<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a,
-				risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris.
-				Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem.
-				Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo.
-				Vivamus sed magna quis ligula eleifend adipiscing. Duis orci.
-				Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam
-				molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut
-				dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique
-				tempus lectus.</p>
+			<h1 class="text-center">회원명단</h1>
+			<br />
+			<div class="container">
+				<div class="row">
+					<table class="table table-hover">
+						<thead>
+							<tr class="bg-primary">
+								<th>일련번호</th>
+								<th>아이디</th>
+								<th>패스워드</th>
+								<th>회원이름</th>
+								<th>나이</th>
+								<th>성별</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:set var="sn" value="0" />
+							<c:forEach items="${userlist}" var="user">
+								<tr>
+									<td><c:out value="${sn = sn + 1}" /></td>
+									<td>${user.userid}</td>
+									<td>${user.passwd}</td>
+									<td>${user.name}</td>
+									<td>${user.age}</td>
+									<td><c:if test="${user.gender eq '1'}">
+								남성
+								</c:if> <c:if test="${user.gender eq '2'}">
+								여성
+								</c:if></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
 		</div>
 		<div id="tabs-2">
 			<p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus
@@ -74,69 +103,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<%-- <h1 class="text-center">회원명단</h1>
-	<br />
-	<div class="container">
-		<div class="row">
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>일련번호</th><th>아이디</th><th>패스워드</th>
-						<th>회원이름</th><th>나이</th><th>성별</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:set var="sn" value="0" />
-					<c:forEach items="${userlist}" var="user">
-						<tr>
-							<td><c:out value="${sn = sn + 1}" /></td><td>${user.userid}</td>
-							<td>${user.passwd}</td><td>${user.name}</td>
-							<td>${user.age}</td>
-							<td>
-								<c:if test="${user.gender eq '1'}">
-								남성
-								</c:if>
-								<c:if test="${user.gender eq '2'}">
-								여성
-								</c:if>
-							</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-		</div>
-	</div> --%>

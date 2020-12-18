@@ -15,7 +15,5 @@ public class QnaVO {
 	private String email;
 	private String writeday;
 	private int readnum;
-	private int grp;
-	private int lvl;
-	private int step;
+	private int grp, lvl, step;
 }
