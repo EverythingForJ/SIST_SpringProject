@@ -18,7 +18,7 @@
 <script>
 	$(function(){
 		$('#btnHome').click(function(){
-			location.replace('/');  //Home으로..
+			location.replace('/');  //Home으로...
 		});
 		$('#btnUpdate').click(function(){
 			if($(this).text() == '정보변경하기'){
