@@ -59,6 +59,11 @@
 		WHERE bno = #{bno}
 	</select>
 	
+	<!-- 전체 레코드 수 조회 -->
+	<select id="selectCount" resultType="Integer">
+		SELECT COUNT(bno) FROM Qna
+	</select>
+	
 	<!--  조회수 증가 -->
 	<update id="readnumUpdate" parameterType="int">
 		UPDATE Qna SET readnum = readnum + 1

@@ -13,4 +13,5 @@ public interface QnaService {
 	void delete(int bno);
 	void updateReadnum(int bno);
 	void reply(QnaVO qnaVO);
+	int getTotalPage(int pageSize);
 }

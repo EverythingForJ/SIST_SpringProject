@@ -113,4 +113,13 @@ public class QnaServiceImpl implements QnaService {
 		this.qnaDao.replyQna(qnaVO);
 	}
 
+	@Override
+	public int getTotalPage(int pageSize) {
+		int count = this.qnaDao.getTotalCount();  //전체 레코드 수
+		int totalPage = (count % pageSize == 0) ? count / pageSize : count / pageSize + 1;
+		return totalPage;
+	}
+	
+	
+
 }

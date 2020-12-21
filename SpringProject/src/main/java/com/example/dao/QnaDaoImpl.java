@@ -54,4 +54,9 @@ public class QnaDaoImpl implements QnaDao {
 		this.sqlSession.update("Qna.updateStepSP", qnaVO);
 		this.sqlSession.insert("Qna.insertReply", qnaVO);
 	}
+
+	@Override
+	public int getTotalCount() {
+		return (Integer)this.sqlSession.selectOne("selectCount");
+	}
 }

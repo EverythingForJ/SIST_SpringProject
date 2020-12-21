@@ -13,4 +13,5 @@ public interface QnaDao {
 	void deleteQna(int bno);
 	void readnumUpdate(int bno);
 	void replyQna(QnaVO qnaVO);
+	int getTotalCount();
 }

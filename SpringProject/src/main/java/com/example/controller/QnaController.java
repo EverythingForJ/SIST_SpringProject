@@ -37,13 +37,18 @@ public class QnaController {
 			qnaVO.setEmail(email);
 		}
 		this.qnaService.create(qnaVO);
-		return "redirect:/qna/list";
+		return "redirect:/qna/list?page=1";
 	}
 	
 	@GetMapping("/list")
-	public String list(Model model) {
+	public String list(@RequestParam("page") int page, Model model) {
+		int pageSize = 5;  //한 페이지에 뿌여지는 레코드 수
+		int totalPage = this.qnaService.getTotalPage(pageSize);  //전체 페이지 수
 		List<QnaVO> list = this.qnaService.readAll();
 		model.addAttribute("qnalist", list);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("totalPage", totalPage);
 		return "/qna/list";     //WEB-INF/views/qna/list.jsp
 	}
 	
@@ -62,7 +67,7 @@ public class QnaController {
 	@GetMapping("/delete")
 	public String delete(@RequestParam("bno") int bno) {
 		this.qnaService.delete(bno);
-		return "redirect:/qna/list";
+		return "redirect:/qna/list?page=1";
 	}
 	
 	@GetMapping("/update")
@@ -98,6 +103,6 @@ public class QnaController {
 			qnaVO.setEmail(email);
 		}
 		this.qnaService.reply(qnaVO);
-		return "redirect:/qna/list";
+		return "redirect:/qna/list?page=1";
 	}
 }
