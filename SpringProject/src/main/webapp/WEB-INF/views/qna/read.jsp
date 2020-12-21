@@ -64,7 +64,7 @@
             <td class="text-right">
             	<div>
 				  <button type="button" id="btnList" class="btn btn-primary">목록으로</button>&nbsp;
-				  <button type="button" class="btn btn-success">답변하기</button>&nbsp;
+				  <button type="button" id="btnReply" class="btn btn-success">답변하기</button>&nbsp;
 				  <button type="button" id="btnQnaUpdate" class="btn btn-success">수정하기</button>&nbsp;
 				  <button type="button" id="btnQnaDelete" class="btn btn-info">삭제하기</button>
 				</div>
@@ -82,6 +82,9 @@
 	});
 	$('#btnList').on('click', function(){
 		location.href = "/qna/list";    //목록으로
+	});
+	$('#btnReply').on('click', function(){
+		location.href = "/qna/reply?bno=" + ${qna.bno}; 
 	});
 	$('#btnQnaDelete').on('click', function(){
 		if(confirm("정말 삭제하시겠습니까 ? ")){

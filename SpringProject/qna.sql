@@ -21,19 +21,6 @@ CREATE TABLE QnA
     CONSTRAINT QnA_bno_pk  PRIMARY KEY(bno)
 )
 
---게시판 목록 가져오기
-CREATE OR REPLACE PROCEDURE sp_bbs_select_all
-(
-    bbs_record    OUT   SYS_REFCURSOR
-)
-AS
-BEGIN
-    OPEN bbs_record FOR
-    SELECT bno, title, email, TO_CHAR(regdate, 'YYYY-MM-DD') AS writeday, readnum, name, userid
-    FROM Board NATURAL JOIN Users 
-    ORDER BY bno DESC;
-END;
-
 --새로운 글 입력하기
 CREATE OR REPLACE PROCEDURE sp_qna_insert
 (
@@ -57,47 +44,15 @@ BEGIN
     COMMIT;
 END;
 
---글 번호로 한개의 게시판 글 가져오기
-CREATE OR REPLACE PROCEDURE sp_bbs_select_one
+--기존 데이터의 step을 1씩 증가
+CREATE OR REPLACE PROCEDURE sp_qna_update_step
 (
-    v_bno          IN       Board.bno%TYPE,
-    bbs_record     OUT      SYS_REFCURSOR
-)
-AS
-BEGIN
-    OPEN bbs_record FOR
-    SELECT bno, title, content, email, TO_CHAR(regdate, 'YYYY-MM-DD') AS writeday,
-           readnum, userid, name
-    FROM Board INNER JOIN Users USING(userid)
-    WHERE bno = v_bno;
-END;
-
---글 번호로 조회수 증가하기
-CREATE OR REPLACE PROCEDURE sp_bbs_readnum_update
-(
-    v_bno          IN       Board.bno%TYPE
+    v_grp    IN     Qna.grp%TYPE,
+    v_step   IN     Qna.step%TYPE
 )
 IS
 BEGIN
-    UPDATE Board
-    SET readnum = readnum + 1
-    WHERE bno = v_bno;
-    COMMIT;
-END;
-
---게시판 글 수정하기
-CREATE OR REPLACE PROCEDURE sp_bbs_update
-(
-    v_title       IN      Board.title%TYPE,
-    v_content     IN      Board.content%TYPE,
-    v_email       IN      Board.email%TYPE,
-    v_bno         IN      Board.bno%TYPE
-)
-IS
-BEGIN
-    UPDATE Board
-    SET title = v_title, content = v_content, email = v_email
-    WHERE bno = v_bno;
-    
+    UPDATE Qna SET step = step + 1
+    WHERE grp = v_grp AND step >= v_step;
     COMMIT;
 END;

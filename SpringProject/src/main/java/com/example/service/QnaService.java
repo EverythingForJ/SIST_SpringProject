@@ -12,4 +12,5 @@ public interface QnaService {
 	void update(QnaVO qnaVO);
 	void delete(int bno);
 	void updateReadnum(int bno);
+	void reply(QnaVO qnaVO);
 }

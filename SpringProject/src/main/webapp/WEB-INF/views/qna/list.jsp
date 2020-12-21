@@ -31,7 +31,14 @@
   				<c:if test="${qnalist.size() > 0}">
   					<c:forEach items="${qnalist}" var="qna">
   						<tr>
-  							<td class="text-center">${qna.grp}</td>
+  							<td class="text-center">
+  								<c:if test="${qna.lvl gt 0}"><!-- 만일 답변일 경우에는 글번호를 보여주지 말자. -->
+  									&nbsp;
+  								</c:if>
+  								<c:if test="${qna.lvl eq 0 }"> <!--  원본 글이면 -->
+  									${qna.grp}
+  								</c:if>
+  							</td>
   							<td class="text-center">
   								<c:if test="${empty qna.email}">
   									${qna.writer}
@@ -40,7 +47,13 @@
   									<a href="mailto:${qna.email}">${qna.writer}</a>
   								</c:if>
   							</td>
-  							<td class="text-center">
+  							<td class="text-left">
+  								<c:forEach begin="1" end="${qna.lvl * 3}" var="i">
+  									&nbsp;
+  								</c:forEach>
+  								<c:if test="${qna.lvl gt 0}">
+  									<img src="/images/reply.jpg" />
+  								</c:if>
   								<a href="/qna/read?bno=${qna.bno}">${qna.title}</a>
   							</td>
   							<td class="text-center">${qna.writeday}</td>

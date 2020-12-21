@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.dao.QnaDao;
+import com.example.vo.BbsVO;
 import com.example.vo.QnaVO;
 
 @Service("qnaService")
@@ -15,13 +16,32 @@ public class QnaServiceImpl implements QnaService {
 
 	@Override
 	public void create(QnaVO qnaVO) {
-		// TODO Auto-generated method stub
-
+		String content = qnaVO.getContent();
+		//content = this.changeEnter(content); //일반 Textarea에서는 해야 됨.
+		content = this.changeTag(content);  
+		content = content.replace("'", "\"");  //일반 Textarea에서는 해야 됨.
+		qnaVO.setContent(content);
+		
+		String title = qnaVO.getTitle();
+		title = this.changeTag(title);
+		title = title.replace("'", "\"");
+		qnaVO.setTitle(title);
+		this.qnaDao.insertQna(qnaVO);
 	}
 
 	@Override
 	public QnaVO read(int bno) {
-		return this.qnaDao.selectQna(bno);
+		QnaVO qnaVO = this.qnaDao.selectQna(bno);
+		String title = qnaVO.getTitle();
+		title = this.reverseChangeTag(title);
+		title = title.replace("\"", "'");
+		qnaVO.setTitle(title);
+		
+		String content = qnaVO.getContent();
+		//content = this.reverseChangeEnter(content);
+		content = this.reverseChangeTag(content);
+		qnaVO.setContent(content);
+		return qnaVO;
 	}
 
 	@Override
@@ -31,12 +51,8 @@ public class QnaServiceImpl implements QnaService {
 
 	@Override
 	public void update(QnaVO qnaVO) {
-		//Service는 비즈니스 처리 해야 함.
-		//1. 엔터키를 <br />로 변경 
-		//2. tag를 일반 특수문자 &lt;(<)  &gt(>); 로 변경
-		//3. 홑따옴표를 쌍따옴표로 변경
 		String content = qnaVO.getContent();
-		content = this.changeEnter(content); //일반 Textarea에서는 해야 됨.
+		//content = this.changeEnter(content); //일반 Textarea에서는 해야 됨.
 		content = this.changeTag(content);  
 		content = content.replace("'", "\"");  //일반 Textarea에서는 해야 됨.
 		qnaVO.setContent(content);
@@ -58,13 +74,13 @@ public class QnaServiceImpl implements QnaService {
 		this.qnaDao.readnumUpdate(bno);
 	}
 	
-	private String changeEnter(String str) {
-		return str.replace("\n", "<br />");
-	}
-	
-	private String reverseChangeEnter(String str) {
-		return str.replace("<br />", "\n");
-	}
+//	private String changeEnter(String str) {
+//		return str.replace("\n", "<br />");
+//	}
+//	
+//	private String reverseChangeEnter(String str) {
+//		return str.replace("<br />", "\n");
+//	}
 	
 	private String changeTag(String str) {
 		String newStr = str.replace("<", "&lt;");
@@ -74,6 +90,27 @@ public class QnaServiceImpl implements QnaService {
 	private String reverseChangeTag(String str) {
 		String newStr = str.replace("&lt;", "<");
 		return newStr.replace("&gt;", ">");
+	}
+
+	@Override
+	public void reply(QnaVO qnaVO) {
+		int lvl = qnaVO.getLvl();
+		qnaVO.setLvl(lvl + 1);  //lvl 더하기 1 해야 함
+		
+		int step = qnaVO.getStep();
+		qnaVO.setStep(step + 1);  //step도 1 더해야 함.
+		
+		String content = qnaVO.getContent();
+		//content = this.changeEnter(content); //일반 Textarea에서는 해야 됨.
+		content = this.changeTag(content);  
+		content = content.replace("'", "\"");  //일반 Textarea에서는 해야 됨.
+		qnaVO.setContent(content);
+		
+		String title = qnaVO.getTitle();
+		title = this.changeTag(title);
+		title = title.replace("'", "\"");
+		qnaVO.setTitle(title);
+		this.qnaDao.replyQna(qnaVO);
 	}
 
 }

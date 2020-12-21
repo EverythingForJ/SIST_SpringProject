@@ -23,19 +23,33 @@ public class QnaController {
 	@Autowired
 	private QnaService qnaService;
 
+	@GetMapping("/write")
+	public String write() {
+		return "/qna/write";   //WEB-INF/views/qna/write.jsp
+	}
+	
+	@PostMapping("/write")
+	public String write(QnaVO qnaVO, 
+							@RequestParam("company") String company) {
+		String email = qnaVO.getEmail();
+		if(!email.equals("")) {
+			email += "@" + company;
+			qnaVO.setEmail(email);
+		}
+		this.qnaService.create(qnaVO);
+		return "redirect:/qna/list";
+	}
+	
 	@GetMapping("/list")
 	public String list(Model model) {
 		List<QnaVO> list = this.qnaService.readAll();
-		//log.info("갯수 = " + list.size());
 		model.addAttribute("qnalist", list);
 		return "/qna/list";     //WEB-INF/views/qna/list.jsp
 	}
 	
 	@GetMapping("/read")
 	public String read(@RequestParam("bno") int bno , Model model) {
-		//int bno = Integer.parseInt(request.getParameter("bno"));
 		QnaVO qnaVO = this.qnaService.read(bno);
-		//log.info(qnaVO.toString());
 		model.addAttribute("qna", qnaVO);
 		return "/qna/read";   //WEB-INF/views/qna/read.jsp
 	}
@@ -61,8 +75,6 @@ public class QnaController {
 	@PostMapping("/update")
 	public String update(QnaVO qnaVO, 
 								@RequestParam("company") String company) {
-//		log.info(qnaVO.toString());
-//		log.info(company);
 		String email = qnaVO.getEmail();
 		email += "@" + company;
 		qnaVO.setEmail(email);
@@ -70,4 +82,22 @@ public class QnaController {
 		return "redirect:/qna/read?bno=" + qnaVO.getBno();
 	}
 
+	@GetMapping("/reply")
+	public String reply(@RequestParam("bno") int bno, Model model) {
+		QnaVO qnaVO = this.qnaService.read(bno);
+		model.addAttribute("qna", qnaVO);
+		return "/qna/reply";     //WEB-INF/views/qna/reply.jsp
+	}
+	
+	@PostMapping("/reply")
+	public String reply(QnaVO qnaVO, 
+							@RequestParam("company") String company) {
+		String email = qnaVO.getEmail();
+		if(!email.equals("")) {
+			email += "@" + company;
+			qnaVO.setEmail(email);
+		}
+		this.qnaService.reply(qnaVO);
+		return "redirect:/qna/list";
+	}
 }
